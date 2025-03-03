@@ -23,7 +23,7 @@ public class SoapService {
 
         Document xmlDocument = parseXml(xml);
 
-        Source xsltSource = new StreamSource("src/main/resources/xslt/transform.xslt");
+        Source xsltSource = new StreamSource(getClass().getClassLoader().getResourceAsStream("xslt/transform.xslt"));
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer;
         try {
