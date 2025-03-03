@@ -18,8 +18,8 @@ repositories {
 }
 
 dependencies {
-	implementation("org.springframework.ws:spring-ws-core")
-	implementation("org.springframework.boot:spring-boot-starter-web-services")
+	implementation("org.springframework.ws:spring-ws-core:3.1.8")
+	implementation("org.springframework.boot:spring-boot-starter-web-services:3.3.5")
 	implementation("wsdl4j:wsdl4j")
 	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 

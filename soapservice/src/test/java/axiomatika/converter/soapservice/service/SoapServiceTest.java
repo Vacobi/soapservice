@@ -38,8 +38,6 @@ class SoapServiceTest {
 
         String actualXslt = soapService.convertXmlToXslt(xml);
 
-        boolean equals = expXslt.equals(actualXslt);
-
-        assertTrue(equals);
+        assertEquals(expXslt, actualXslt);
     }
 }

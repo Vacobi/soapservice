@@ -3,3 +3,11 @@ server:
 spring:
   application:
     name: soap-service
+
+
+logging:
+  level:
+    org.springframework.ws: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.boot.web: DEBUG
+    axiomatika.converter.soapservice: DEBUG
