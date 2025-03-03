@@ -22,7 +22,8 @@ public class SoapEndpoint {
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getXsltRequest")
     @ResponsePayload
     public XlstResponseDto getXslt(@RequestPayload XsltRequestDto request) {
-        System.out.println("\n\n\n\n\nGet XSLT Request\n\n\n\n\n"); // Не выводится, значит не заходит сюда
-        return new XlstResponseDto(soapService.convertXmlToXslt(request.getXmlData()));
+        System.out.println("\n\n\n\n\nGet XSLT Request\n\n\n\n\n");
+        String xsltContent = soapService.convertXmlToXslt(request.getXmlData());
+        return new XlstResponseDto(xsltContent);
     }
 }
