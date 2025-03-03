@@ -42,7 +42,8 @@ public class SoapService {
             throw new IncorrectXmlException(e.getMessage());
         }
 
-        return writer.toString();
+        String xslt = writer.toString();
+        return xslt;
     }
 
     private Document parseXml(String xml) {
