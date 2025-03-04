@@ -1,6 +1,6 @@
 package axiomatika.converter.soapservice.controller;
 
-import axiomatika.converter.soapservice.dto.XlstResponseDto;
+import axiomatika.converter.soapservice.dto.XsltResponseDto;
 import axiomatika.converter.soapservice.dto.XsltRequestDto;
 import axiomatika.converter.soapservice.service.SoapService;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -21,9 +21,9 @@ public class SoapEndpoint {
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getXsltRequest")
     @ResponsePayload
-    public XlstResponseDto getXslt(@RequestPayload XsltRequestDto request) {
+    public XsltResponseDto getXslt(@RequestPayload XsltRequestDto request) {
         System.out.println("\n\n\n\n\nGet XSLT Request\n\n\n\n\n");
         String xsltContent = soapService.convertXmlToXslt(request.getXmlData());
-        return new XlstResponseDto(xsltContent);
+        return new XsltResponseDto(xsltContent);
     }
 }
