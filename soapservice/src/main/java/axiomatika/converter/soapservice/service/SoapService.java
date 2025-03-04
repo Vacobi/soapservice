@@ -1,30 +1,30 @@
 package axiomatika.converter.soapservice.service;
 
 import axiomatika.converter.soapservice.exception.IncorrectXmlException;
-import org.apache.logging.log4j.util.InternalException;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
 import java.io.StringReader;
 import java.io.StringWriter;
 
 @Service
 public class SoapService {
 
+    private final Transformer transformer;
+
+    public SoapService(Transformer transformer) {
+        this.transformer = transformer;
+    }
+
     public String convertXmlToXslt(String xml) {
 
         Document xmlDocument = parseXml(xml);
-
-        Transformer transformer = getConfiguredTransformer();
 
         return convertToXslt(xmlDocument, transformer);
     }
@@ -42,20 +42,6 @@ public class SoapService {
         }
 
         return xmlDocument;
-    }
-
-    private Transformer getConfiguredTransformer() {
-        Source xsltSource = new StreamSource(getClass().getClassLoader().getResourceAsStream("xslt/transform.xslt"));
-        TransformerFactory transformerFactory = TransformerFactory.newInstance();
-        Transformer transformer;
-        try {
-            transformer = transformerFactory.newTransformer(xsltSource);
-        } catch (Exception e) {
-            throw new InternalException("Incorrect transformer");
-        }
-        transformer.setOutputProperty(javax.xml.transform.OutputKeys.OMIT_XML_DECLARATION, "yes");
-
-        return transformer;
     }
 
     private String convertToXslt(Document xmlDocument, Transformer transformer) {
