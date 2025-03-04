@@ -4,14 +4,14 @@ import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(namespace = "http://localhost:8081/ws/server", name = "getXsltResponse")
-public class XlstResponseDto {
+public class XsltResponseDto {
     private String xsltResult;
 
-    public XlstResponseDto() {
+    public XsltResponseDto() {
         ;
     }
 
-    public XlstResponseDto(String xsltResult) {
+    public XsltResponseDto(String xsltResult) {
         this.xsltResult = xsltResult;
     }
 
