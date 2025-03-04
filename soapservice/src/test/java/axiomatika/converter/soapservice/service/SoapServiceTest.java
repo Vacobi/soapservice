@@ -31,9 +31,9 @@ class SoapServiceTest {
                 """;
 
         String expXslt = """
-                <person name="Тест" surname="Тестов" patronymic="Тестович" birthDate="01.01.1990" gender="MAN">\r
-                    <document series="1333" number="112233" type="PASSPORT" issueDate="01.01.2020"/>\r
-                </person>\r
+                <person name="Тест" surname="Тестов" patronymic="Тестович" birthDate="01.01.1990" gender="MAN">
+                    <document series="1333" number="112233" type="PASSPORT" issueDate="01.01.2020"/>
+                </person>
                 """;
 
         String actualXslt = soapService.convertXmlToXslt(xml);
