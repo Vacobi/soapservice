@@ -23,27 +23,9 @@ public class SoapService {
 
         Document xmlDocument = parseXml(xml);
 
-        Source xsltSource = new StreamSource(getClass().getClassLoader().getResourceAsStream("xslt/transform.xslt"));
-        TransformerFactory transformerFactory = TransformerFactory.newInstance();
-        Transformer transformer;
-        try {
-            transformer = transformerFactory.newTransformer(xsltSource);
-        } catch (Exception e) {
-            throw new IncorrectXmlException(e.getMessage());
-        }
-        transformer.setOutputProperty(javax.xml.transform.OutputKeys.OMIT_XML_DECLARATION, "yes");
+        Transformer transformer = getConfiguredTransformer();
 
-        DOMSource domSource = new DOMSource(xmlDocument);
-        StringWriter writer = new StringWriter();
-        StreamResult result = new StreamResult(writer);
-        try {
-            transformer.transform(domSource, result);
-        } catch (Exception e) {
-            throw new IncorrectXmlException(e.getMessage());
-        }
-
-        String xslt = writer.toString().replaceAll("\\r\\n", "\n");
-        return xslt;
+        return convertToXslt(xmlDocument, transformer);
     }
 
     private Document parseXml(String xml) {
@@ -59,5 +41,33 @@ public class SoapService {
         }
 
         return xmlDocument;
+    }
+
+    private Transformer getConfiguredTransformer() {
+        Source xsltSource = new StreamSource(getClass().getClassLoader().getResourceAsStream("xslt/transform.xslt"));
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer;
+        try {
+            transformer = transformerFactory.newTransformer(xsltSource);
+        } catch (Exception e) {
+            throw new IncorrectXmlException(e.getMessage());
+        }
+        transformer.setOutputProperty(javax.xml.transform.OutputKeys.OMIT_XML_DECLARATION, "yes");
+
+        return transformer;
+    }
+
+    private String convertToXslt(Document xmlDocument, Transformer transformer) {
+        DOMSource domSource = new DOMSource(xmlDocument);
+        StringWriter writer = new StringWriter();
+        StreamResult result = new StreamResult(writer);
+        try {
+            transformer.transform(domSource, result);
+        } catch (Exception e) {
+            throw new IncorrectXmlException(e.getMessage());
+        }
+
+        String xslt = writer.toString().replaceAll("\\r\\n", "\n");
+        return xslt;
     }
 }
