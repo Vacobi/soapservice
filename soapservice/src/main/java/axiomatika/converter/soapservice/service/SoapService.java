@@ -1,6 +1,7 @@
 package axiomatika.converter.soapservice.service;
 
 import axiomatika.converter.soapservice.exception.IncorrectXmlException;
+import org.apache.logging.log4j.util.InternalException;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
@@ -50,7 +51,7 @@ public class SoapService {
         try {
             transformer = transformerFactory.newTransformer(xsltSource);
         } catch (Exception e) {
-            throw new IncorrectXmlException(e.getMessage());
+            throw new InternalException("Incorrect transformer");
         }
         transformer.setOutputProperty(javax.xml.transform.OutputKeys.OMIT_XML_DECLARATION, "yes");
 
@@ -64,7 +65,7 @@ public class SoapService {
         try {
             transformer.transform(domSource, result);
         } catch (Exception e) {
-            throw new IncorrectXmlException(e.getMessage());
+            throw new IncorrectXmlException("Error during XSLT-transformation: " + e.getMessage());
         }
 
         String xslt = writer.toString().replaceAll("\\r\\n", "\n");
