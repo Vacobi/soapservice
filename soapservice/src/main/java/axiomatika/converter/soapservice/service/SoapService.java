@@ -42,7 +42,7 @@ public class SoapService {
             throw new IncorrectXmlException(e.getMessage());
         }
 
-        String xslt = writer.toString();
+        String xslt = writer.toString().replaceAll("\\r\\n", "\n");
         return xslt;
     }
 
