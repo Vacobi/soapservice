@@ -434,4 +434,41 @@ class SoapServiceTest {
 
         assertEquals(expXslt, actualXslt);
     }
+
+    @Test
+    public void emptyXml() {
+        String xml = """
+                """;
+
+        IncorrectXmlException incorrectXmlException = assertThrows(
+                IncorrectXmlException.class,
+                () -> {
+                    soapService.convertXmlToXslt(xml);
+                }
+        );
+    }
+
+    @Test
+    public void noRootElement() {
+        String xml = """
+                <name>Тест</name>
+                <surname>Тестов</surname>
+                <patronymic>Тестович</patronymic>
+                <birthDate></birthDate>
+                <gender>MAN</gender>
+                <document>
+                    <series>1333</series>
+                    <number>112233</number>
+                    <type>PASSPORT</type>
+                    <issueDate>2020-01-01</issueDate>
+                </document>
+                """;
+
+        IncorrectXmlException incorrectXmlException = assertThrows(
+                IncorrectXmlException.class,
+                () -> {
+                    soapService.convertXmlToXslt(xml);
+                }
+        );
+    }
 }
