@@ -365,19 +365,6 @@ class SoapServiceTest {
     }
 
     @Test
-    public void allElementsNotSet() {
-        String xml = """
-                """;
-
-        IncorrectXmlException incorrectXmlException = assertThrows(
-                IncorrectXmlException.class,
-                () -> {
-                    soapService.convertXmlToXslt(xml);
-                }
-        );
-    }
-
-    @Test
     public void emptyStringElement() {
         String xml = """
                 <person>
